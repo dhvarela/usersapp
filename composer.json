@@ -1,0 +1,21 @@
+{
+    "name": "usersapp",
+    "type": "standard",
+    "description": "A user-login application using a file as a memory persistence",
+    "homepage": "https://github.com/dhvarela/usersapp",
+    "license": "dhvarela",
+    "autoload": {
+        "psr-4": {
+            "Users\\": "src/Users"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Users\\": "tests/Users"
+        }
+    },
+    "bin": ["bin/checking"],
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    }
+}
