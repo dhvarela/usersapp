@@ -20,6 +20,7 @@ if ($userRepository->hasFile()) {
         $userRepository->addUser($user);
     }
 
+    // if index.php is called without arguments, email and pass are setted by default
     $searchEmail = isset($argv[1]) ? $argv[1] : 'bravo@mailinator.com';
     $searchPass = isset($argv[2]) ? $argv[2] : '2133455';
 
@@ -35,7 +36,7 @@ if ($userRepository->hasFile()) {
         echo "The user pass is incorrect\n";
     }
 } else {
-    echo "No se ha encontrado el fichero";
+    echo "The file doesn't exist";
 }
 
 
