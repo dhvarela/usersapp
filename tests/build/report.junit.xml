@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="usersapp" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001272">
+    <testsuite name="UsersApp\Users\UsersTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/UsersApp/Users/UsersTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001272">
+      <testcase name="testHello" class="UsersApp\Users\UsersTest" classname="UsersApp.Users.UsersTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/UsersApp/Users/UsersTest.php" line="9" assertions="1" time="0.001272"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

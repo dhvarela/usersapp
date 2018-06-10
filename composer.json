@@ -6,12 +6,12 @@
     "license": "dhvarela",
     "autoload": {
         "psr-4": {
-            "Users\\": "src/Users"
+            "Dhv\\": "src/Dhv"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Users\\": "tests/Users"
+            "Dhv\\": "tests/Dhv"
         }
     },
     "bin": ["bin/checking"],
