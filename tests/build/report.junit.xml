@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="usersapp" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001272">
-    <testsuite name="UsersApp\Users\UsersTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/UsersApp/Users/UsersTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.001272">
-      <testcase name="testHello" class="UsersApp\Users\UsersTest" classname="UsersApp.Users.UsersTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/UsersApp/Users/UsersTest.php" line="9" assertions="1" time="0.001272"/>
+  <testsuite name="usersapp" tests="8" assertions="11" errors="0" failures="0" skipped="0" time="0.011706">
+    <testsuite name="Dhv\Domain\Model\User\ModelUserTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Model/User/ModelUserTest.php" tests="4" assertions="5" errors="0" failures="0" skipped="0" time="0.007204">
+      <testcase name="testModelUser" class="Dhv\Domain\Model\User\ModelUserTest" classname="Dhv.Domain.Model.User.ModelUserTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Model/User/ModelUserTest.php" line="11" assertions="2" time="0.004206"/>
+      <testcase name="testChangePassword" class="Dhv\Domain\Model\User\ModelUserTest" classname="Dhv.Domain.Model.User.ModelUserTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Model/User/ModelUserTest.php" line="23" assertions="1" time="0.000864"/>
+      <testcase name="testChangeEmptyPassword" class="Dhv\Domain\Model\User\ModelUserTest" classname="Dhv.Domain.Model.User.ModelUserTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Model/User/ModelUserTest.php" line="40" assertions="1" time="0.001242"/>
+      <testcase name="testSetInvalidEmail" class="Dhv\Domain\Model\User\ModelUserTest" classname="Dhv.Domain.Model.User.ModelUserTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Model/User/ModelUserTest.php" line="55" assertions="1" time="0.000892"/>
+    </testsuite>
+    <testsuite name="Dhv\Domain\Services\FileFinderTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Services/FileFinderTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.002894">
+      <testcase name="testFileExists" class="Dhv\Domain\Services\FileFinderTest" classname="Dhv.Domain.Services.FileFinderTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Services/FileFinderTest.php" line="16" assertions="1" time="0.001062"/>
+      <testcase name="testFileNotExists" class="Dhv\Domain\Services\FileFinderTest" classname="Dhv.Domain.Services.FileFinderTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Services/FileFinderTest.php" line="25" assertions="1" time="0.000969"/>
+      <testcase name="testFilenameInConstruction" class="Dhv\Domain\Services\FileFinderTest" classname="Dhv.Domain.Services.FileFinderTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Domain/Services/FileFinderTest.php" line="34" assertions="1" time="0.000863"/>
+    </testsuite>
+    <testsuite name="Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepositoryTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Infrastructure/Persistence/InMemory/User/InMemoryUserRepositoryTest.php" tests="1" assertions="3" errors="0" failures="0" skipped="0" time="0.001608">
+      <testcase name="testInMemoryUserRepository" class="Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepositoryTest" classname="Dhv.Infrastructure.Persistence.InMemory.User.InMemoryUserRepositoryTest" file="/home/daniel/Proyectos/SIMULADOR/usersapp/tests/Dhv/Infrastructure/Persistence/InMemory/User/InMemoryUserRepositoryTest.php" line="17" assertions="3" time="0.001608"/>
     </testsuite>
   </testsuite>
 </testsuites>

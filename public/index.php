@@ -4,7 +4,6 @@ use Dhv\Domain\Services\FileFinder;
 use Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepository;
 use Dhv\Domain\Model\User\ModelUser;
 
-define('DS', DIRECTORY_SEPARATOR);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $ff = new FileFinder();
@@ -27,7 +26,7 @@ if ($userRepository->hasFile()) {
     if ($userRepository->findByEmail($searchEmail)) {
         echo "User exists \n";
     } else {
-        echo "User doesn't exist\n";
+        echo "User doesn't exist \n";
     }
 
     if ($userRepository->findByEmailAndPass($searchEmail, $searchPass)) {
