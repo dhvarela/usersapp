@@ -13,6 +13,8 @@ A user-login application using a file as a memory persistence
 
     $ composer install
 
+## Usage
+
 ##### Pass the tests
 
 PHPUnit has been installed with composer install command
