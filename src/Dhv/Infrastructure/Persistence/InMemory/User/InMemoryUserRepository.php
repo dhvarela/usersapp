@@ -81,6 +81,11 @@ class InMemoryUserRepository
         return $this->file;
     }
 
+    public function users()
+    {
+        return $this->users;
+    }
+
     public function fileUrl()
     {
         return $this->fileUrl;
