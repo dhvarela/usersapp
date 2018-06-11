@@ -10,39 +10,23 @@ namespace Dhv\Infrastructure\Persistence\InMemory\User;
 
 use Dhv\Domain\Model\User\ModelUser;
 use Dhv\Domain\Services\FileFinder;
+use Dhv\Domain\Services\FileOperations;
 use PHPUnit\Framework\TestCase;
 
 class InMemoryUserRepositoryTest extends TestCase
 {
 
-    public function testInMemoryUserRepository()
-    {
-        $ff = new FileFinder();
-        $fileUrl = $ff->findFile($ff->filename());
-
-        $inMemoryUserRepo = new InMemoryUserRepository($fileUrl);
-
-        $inMemoryUserRepo->openFile();
-
-        $this->assertEquals($fileUrl, $inMemoryUserRepo->fileUrl());
-        $this->assertTrue($inMemoryUserRepo->hasFile());
-        $this->assertNotFalse($inMemoryUserRepo->file());
-    }
-
     public function testAddUsersInMemoryUserRepository()
     {
         $data = [[
-                'email' => "tango@mailinator.com",
-                'pass' => "qwerty"
-            ], [
-                'email' => "hotel@mailinator.com",
-                'pass' => "098765"
-            ]];
+            'email' => "tango@mailinator.com",
+            'pass' => "qwerty"
+        ], [
+            'email' => "hotel@mailinator.com",
+            'pass' => "098765"
+        ]];
 
-        $ff = new FileFinder();
-        $fileUrl = $ff->findFile($ff->filename());
-
-        $inMemoryUserRepo = new InMemoryUserRepository($fileUrl);
+        $inMemoryUserRepo = new InMemoryUserRepository();
 
         $userA = new ModelUser($data[0]['email'], $data[0]['pass']);
         $userB = new ModelUser($data[1]['email'], $data[1]['pass']);

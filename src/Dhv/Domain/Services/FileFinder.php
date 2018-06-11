@@ -20,6 +20,9 @@ class FileFinder
         $this->filename = self::FILENAME;
     }
 
+    /**
+     * @param string $filename
+     */
     public function findFile(string $filename)
     {
         $file = __DIR__ . self::DS . ".." . self::DS . ".." . self::DS . "Infrastructure" . self::DS .

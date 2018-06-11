@@ -13,27 +13,9 @@ use Dhv\Domain\Model\User\ModelUser;
 class InMemoryUserRepository
 {
     /**
-     * @string
-     */
-    private $fileUrl;
-
-    /**
      * @var ModelUser[]
      */
     private $users = array();
-
-    /**
-     * @file
-     */
-    private $file = array();
-
-    /**
-     * @param string $fileUrl
-     */
-    public function __construct($fileUrl)
-    {
-        $this->fileUrl = $fileUrl;
-    }
 
     /**
      * {@inheritdoc}
@@ -41,7 +23,7 @@ class InMemoryUserRepository
     public function findByEmail($email)
     {
         foreach ($this->users as $user) {
-            if ($user->email() === $email) {
+            if ($user instanceof ModelUser && $user->email() === $email) {
                 return $user;
             }
         }
@@ -71,29 +53,9 @@ class InMemoryUserRepository
         $this->users[] = $user;
     }
 
-    public function openFile()
-    {
-        $this->file = fopen($this->fileUrl, "r");
-    }
-
-    public function file()
-    {
-        return $this->file;
-    }
-
     public function users()
     {
         return $this->users;
-    }
-
-    public function fileUrl()
-    {
-        return $this->fileUrl;
-    }
-
-    public function hasFile()
-    {
-        return $this->file() ? true : false;
     }
 
 }

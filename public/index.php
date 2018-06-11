@@ -1,8 +1,9 @@
 <?php
 
 use Dhv\Domain\Services\FileFinder;
-use Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepository;
 use Dhv\Domain\Model\User\ModelUser;
+use Dhv\Domain\Services\FileOperations;
+use Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,19 +11,20 @@ $ff = new FileFinder();
 
 $fileUrl = $ff->findFile($ff->filename());
 
-$userRepository = new InMemoryUserRepository($fileUrl);
+$fileOps = new FileOperations($fileUrl);
+$fileOps->openFile();
 
-$userRepository->openFile();
+if ($fileOps->hasFile()) {
 
-if ($userRepository->hasFile()) {
-    while (($datos = fgetcsv($userRepository->file(), 255, ";")) !== FALSE) {
+    $searchEmail = isset($argv[1]) ? $argv[1] : 'bravo@mailinator.com';
+    $searchPass = isset($argv[2]) ? $argv[2] : '2133455';
+
+    $userRepository = new InMemoryUserRepository();
+
+    while (($datos = $fileOps->readFile()) !== FALSE) {
         $user = new ModelUser($datos[0], $datos[1]);
         $userRepository->addUser($user);
     }
-
-    // if index.php is called without arguments, email and pass are setted by default
-    $searchEmail = isset($argv[1]) ? $argv[1] : 'bravo@mailinator.com';
-    $searchPass = isset($argv[2]) ? $argv[2] : '2133455';
 
     if ($userRepository->findByEmail($searchEmail)) {
         echo "User exists \n";

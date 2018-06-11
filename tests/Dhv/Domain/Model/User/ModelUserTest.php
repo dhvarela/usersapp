@@ -2,7 +2,6 @@
 
 namespace Dhv\Domain\Model\User;
 
-use Dhv\Domain\Services\FileFinder;
 use PHPUnit\Framework\TestCase;
 
 class ModelUserTest extends TestCase
