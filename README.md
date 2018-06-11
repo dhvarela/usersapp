@@ -30,8 +30,9 @@ Go to the public folder of the project and execute:
 * arg1 -> this is the user email to find in the csv file
 * arg2 -> this is the password to find in csv file
 
-If user is found, a message will be printed
-If user and password are found, an information message will be printed
+If user is found, a message will be printed.
+
+If user and password are found, an information message will be printed.
 
 When user and password are found, the password change to an encrypt password.
 If you want to recovery the original file, you should edit it as a CSV file with semicolon separators:
@@ -40,3 +41,4 @@ If you want to recovery the original file, you should edit it as a CSV file with
     bravo@mailinator.com;123qwe
     charlie@mailinator.com;poipoi
 
+Another way to recovery the original csv file is passing the application tests.
