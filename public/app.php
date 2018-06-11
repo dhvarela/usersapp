@@ -14,7 +14,11 @@ $fileUrl = $ff->findFile($ff->filename());
 $fileOps = new FileOperations($fileUrl);
 $fileOps->openFile();
 
-if ($fileOps->hasFile()) {
+if (!$fileOps->hasFile()) {
+
+    echo "The file doesn't exist";
+
+} else {
 
     $searchEmail = isset($argv[1]) ? $argv[1] : 'alfa@mailinator.com';
     $searchPass = isset($argv[2]) ? $argv[2] : '123456';
@@ -22,43 +26,38 @@ if ($fileOps->hasFile()) {
     $userRepository = new InMemoryUserRepository();
 
     while (($data = $fileOps->readFile()) !== FALSE) {
-        $user = new ModelUser($data[0], $data[1]);
-        $userRepository->addUser($user);
+        $userRepository->addUser(new ModelUser($data[0], $data[1]));
     }
+
     $fileOps->closeFile();
 
-    if ($userRepository->findByEmail($searchEmail)) {
-        echo "User exists \n";
-    } else {
-        echo "User doesn't exist \n";
-    }
+    $result = $userRepository->findByEmail($searchEmail) ? "User exists \n" : "User doesn't exist \n";
 
     if ($userRepository->findByEmailAndPass($searchEmail, $searchPass)) {
 
-        echo "User pass correct \n";
+        $result .= "The user password is correct \n";
 
-        $userFound = new ModelUser($searchEmail,$searchPass);
+        $userFound = new ModelUser($searchEmail, $searchPass);
         $userFound->encryptPassword();
 
-        if ($userRepository->updateUser($userFound)) {
+        if ($userRepository->updateUserPassword($userFound)) {
 
             $fileOps->openToWriteFile();
 
-            foreach ($userRepository->users() as $user)
-            {
-                $fileOps->writeFile([$user->email(),$user->password()]);
+            foreach ($userRepository->users() as $user) {
+                $fileOps->writeFile([$user->email(), $user->password()]);
             }
 
             $fileOps->closeFile();
-            echo "User pass has been changed \n";
+            $result .= "User pass has been changed \n";
         }
 
     } else {
-        echo "The user pass is incorrect\n";
+        $result .= "The user pass is incorrect\n";
     }
 
-} else {
-    echo "The file doesn't exist";
+    echo $result;
+
 }
 
 

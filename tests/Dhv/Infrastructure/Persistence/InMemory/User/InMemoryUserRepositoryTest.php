@@ -15,50 +15,75 @@ use PHPUnit\Framework\TestCase;
 
 class InMemoryUserRepositoryTest extends TestCase
 {
-
-    public function testAddUsersInMemoryUserRepository()
+    /**
+     * @dataProvider getFakeUsers
+     */
+    public function testAddUsersInMemoryUserRepository($email, $pass)
     {
-        $data = [[
-            'email' => "tango@mailinator.com",
-            'pass' => "qwerty"
-        ], [
-            'email' => "hotel@mailinator.com",
-            'pass' => "098765"
-        ]];
-
         $inMemoryUserRepo = new InMemoryUserRepository();
 
-        $userA = new ModelUser($data[0]['email'], $data[0]['pass']);
-        $userB = new ModelUser($data[1]['email'], $data[1]['pass']);
-        $inMemoryUserRepo->addUser($userA);
-        $inMemoryUserRepo->addUser($userB);
+        $user = new ModelUser($email, $pass);
+        $inMemoryUserRepo->addUser($user);
 
-        $this->assertCount(2,$inMemoryUserRepo->users());
+        $this->assertCount(1,$inMemoryUserRepo->users());
 
-        $userAfinded = $inMemoryUserRepo->findByEmail($data[0]['email']);
-        $this->assertEquals($userA, $userAfinded);
+        $userAfinded = $inMemoryUserRepo->findByEmail($email);
+        $this->assertEquals($user, $userAfinded);
 
         $userNotFound = $inMemoryUserRepo->findByEmail("inventado@mailinator.com");
         $this->assertFalse($userNotFound);
 
-        $userDfinded = $inMemoryUserRepo->findByEmailAndPass($data[1]['email'],$data[1]['pass']);
-        $this->assertEquals($userB, $userDfinded);
+        $userFinded = $inMemoryUserRepo->findByEmailAndPass($email,$pass);
+        $this->assertEquals($user, $userFinded);
 
         $userAndPassNotFound = $inMemoryUserRepo->findByEmailAndPass("inventado2@mailinator.com","zxcvzxcv");
         $this->assertFalse($userAndPassNotFound);
     }
 
-    public function testEncryptPassUserRepository()
+    public function getFakeUsers()
     {
-        $data = ["tango@mailinator.com", "qwerty"];
+        yield [
+            'email' => "tango@mailinator.com",
+            'pass' => "qwerty"
+        ];
+        yield [
+            'email' => "hotel@mailinator.com",
+            'pass' => "098765"
+        ];
+
+    }
+
+    public function testUpdateUserInRepository()
+    {
+        $data = ["tango@mailinator.com", "pass"];
 
         $inMemoryUserRepo = new InMemoryUserRepository();
 
-        $userA = new ModelUser($data[0],$data[1]);
-        $inMemoryUserRepo->addUser($userA);
+        $user = new ModelUser($data[0],$data[1]);
+        $inMemoryUserRepo->addUser($user);
 
-        $userFound = $inMemoryUserRepo->findByEmailAndPass($data[0],$data[1]);
-        $inMemoryUserRepo->encryptUserPass($userFound);
+        $user->changePassword("newpass");
 
+        $inMemoryUserRepo->updateUserPassword($user);
+
+        $this->assertCount(1,$inMemoryUserRepo->users());
+
+        $userDfinded = $inMemoryUserRepo->findByEmailAndPass($data[0],"newpass");
+        $this->assertEquals($user, $userDfinded);
+
+    }
+
+    public function testUpdateUserInRepositoryFails()
+    {
+        $data = ["tango@mailinator.com", "pass"];
+
+        $inMemoryUserRepo = new InMemoryUserRepository();
+
+        $user = new ModelUser($data[0],$data[1]);
+        $user->changePassword("newpass");
+
+        $updated = $inMemoryUserRepo->updateUserPassword($user);
+
+        $this->assertFalse($updated);
     }
 }

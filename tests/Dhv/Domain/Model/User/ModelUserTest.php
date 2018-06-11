@@ -60,4 +60,32 @@ class ModelUserTest extends TestCase
         $user = new ModelUser($data['email'],$data['pass']);
     }
 
+    public function testEncryptPassword()
+    {
+        $data = [
+            'email' => "tango@mailinator.com",
+            'pass'  => "qwerty"
+        ];
+        $user = new ModelUser($data['email'],$data['pass']);
+
+        $user->encryptPassword();
+
+        $this->assertFalse($user->password()=="qwerty");
+        $this->assertEquals($user->password(), md5("qwerty"));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEncryptEmptyPassword()
+    {
+        $data = [
+            'email' => "tango@mailinator.com",
+            'pass'  => "qwerty"
+        ];
+        $user = new ModelUser($data['email'],$data['pass']);
+
+        $user->encryptPassword(" ");
+    }
+
 }
