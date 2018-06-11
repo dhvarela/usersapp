@@ -46,6 +46,22 @@ class InMemoryUserRepository
     }
 
     /**
+     * @param ModelUser $user
+     */
+    public function updateUserPassword(ModelUser $user)
+    {
+        if ($user instanceof ModelUser) {
+            foreach ($this->users as $key=>$u) {
+                if ($u->email() == $user->email()) {
+                    $this->users[$key] = $user;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function addUser(ModelUser $user)

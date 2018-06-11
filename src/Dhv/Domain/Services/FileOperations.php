@@ -32,9 +32,26 @@ class FileOperations
         return fgetcsv($this->file, 255, ";");
     }
 
+    public function writeFile($row)
+    {
+        return fputcsv($this->file,$row,";");
+    }
+
     public function openFile()
     {
         $this->file = fopen($this->fileUrl, "r");
+    }
+
+    public function openToWriteFile()
+    {
+        $this->file = fopen($this->fileUrl, 'w+');
+    }
+
+    public function closeFile()
+    {
+        if (fclose($this->file)) {
+            $this->file = false;
+        }
     }
 
     public function file()
