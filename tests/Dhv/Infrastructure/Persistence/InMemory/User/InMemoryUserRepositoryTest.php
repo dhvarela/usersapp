@@ -47,4 +47,18 @@ class InMemoryUserRepositoryTest extends TestCase
         $userAndPassNotFound = $inMemoryUserRepo->findByEmailAndPass("inventado2@mailinator.com","zxcvzxcv");
         $this->assertFalse($userAndPassNotFound);
     }
+
+    public function testEncryptPassUserRepository()
+    {
+        $data = ["tango@mailinator.com", "qwerty"];
+
+        $inMemoryUserRepo = new InMemoryUserRepository();
+
+        $userA = new ModelUser($data[0],$data[1]);
+        $inMemoryUserRepo->addUser($userA);
+
+        $userFound = $inMemoryUserRepo->findByEmailAndPass($data[0],$data[1]);
+        $inMemoryUserRepo->encryptUserPass($userFound);
+
+    }
 }

@@ -11,6 +11,8 @@ namespace Dhv\Domain\Model\User;
 
 class ModelUser
 {
+    const PASSWORD_DEFAULT = "123456";
+
     /**
      * @var string
      */
@@ -58,6 +60,19 @@ class ModelUser
         }
 
         $this->password = $password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function encryptPassword($password = null)
+    {
+        $password = trim($password ?? $this->password);
+        if (!$password) {
+            throw new \InvalidArgumentException('password');
+        }
+
+        $this->changePassword(md5($password));
     }
 
     /**

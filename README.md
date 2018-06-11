@@ -32,4 +32,11 @@ Go to the public folder of the project and execute:
 
 If user is found, a message will be printed
 If user and password are found, an information message will be printed
-***
+
+When user and password are found, the password change to an encrypt password.
+If you want to recovery the original file, you should edit it as a CSV file with semicolon separators:
+
+    alfa@mailinator.com;123456
+    bravo@mailinator.com;123qwe
+    charlie@mailinator.com;poipoi
+
