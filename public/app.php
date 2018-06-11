@@ -34,6 +34,7 @@ if ($fileOps->hasFile()) {
     }
 
     if ($userRepository->findByEmailAndPass($searchEmail, $searchPass)) {
+
         echo "User pass correct \n";
 
         $userFound = new ModelUser($searchEmail,$searchPass);
@@ -49,11 +50,13 @@ if ($fileOps->hasFile()) {
             }
 
             $fileOps->closeFile();
-
+            echo "User pass has been changed \n";
         }
+
     } else {
         echo "The user pass is incorrect\n";
     }
+
 } else {
     echo "The file doesn't exist";
 }

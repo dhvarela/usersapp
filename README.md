@@ -25,7 +25,7 @@ PHPUnit has been installed with composer install command
 
 Go to the public folder of the project and execute:
 
-    $ php index.php [arg1] [arg2]
+    $ php app.php [arg1] [arg2]
 
 * arg1 -> this is the user email to find in the csv file
 * arg2 -> this is the password to find in csv file
