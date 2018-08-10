@@ -39,7 +39,11 @@ class FileOperations
 
     public function openFile()
     {
-        $this->file = fopen($this->fileUrl, "r");
+        try {
+            $this->file = fopen($this->fileUrl, "r");
+        } catch (\Exception $e) {
+            $this->file = null;
+        }
     }
 
     public function openToWriteFile()

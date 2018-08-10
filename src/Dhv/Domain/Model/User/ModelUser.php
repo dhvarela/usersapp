@@ -37,7 +37,7 @@ class ModelUser
     /**
      * @param $email
      */
-    protected function setEmail($email)
+    private function setEmail($email)
     {
         $email = trim($email);
         if (!$email) {

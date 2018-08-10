@@ -36,7 +36,10 @@ class InMemoryUserRepositoryTest extends TestCase
         $userFinded = $inMemoryUserRepo->findByEmailAndPass($email,$pass);
         $this->assertEquals($user, $userFinded);
 
-        $userAndPassNotFound = $inMemoryUserRepo->findByEmailAndPass("inventado2@mailinator.com","zxcvzxcv");
+        $userAndPassNotFound = $inMemoryUserRepo->findByEmailAndPass($email,"zxcvzxcv");
+        $this->assertFalse($userAndPassNotFound);
+
+        $userAndPassNotFound = $inMemoryUserRepo->findByEmailAndPass("inventado2@mailinator.com",$pass);
         $this->assertFalse($userAndPassNotFound);
     }
 
@@ -64,9 +67,10 @@ class InMemoryUserRepositoryTest extends TestCase
 
         $user->changePassword("newpass");
 
-        $inMemoryUserRepo->updateUserPassword($user);
+        $updated = $inMemoryUserRepo->updateUserPassword($user);
 
         $this->assertCount(1,$inMemoryUserRepo->users());
+        $this->assertTrue($updated);
 
         $userDfinded = $inMemoryUserRepo->findByEmailAndPass($data[0],"newpass");
         $this->assertEquals($user, $userDfinded);
