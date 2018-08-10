@@ -50,6 +50,7 @@ class FileOperationsTest extends TestCase {
             ['bravo@mailinator.com','123qwe'],
             ['charlie@mailinator.com','poipoi']
         ];
+
         foreach ($users as $user) {
             $fileOps->writeFile([$user[0], $user[1]]);
         }
@@ -67,6 +68,30 @@ class FileOperationsTest extends TestCase {
     /**
      * @dataProvider getFileUrl
      */
+    public function testWriteFile($fileUrl)
+    {
+        $fileOps = new FileOperations($fileUrl);
+        $fileOps->openToWriteFile();
+
+        // rewrite csv file
+        $users = [
+            ['alfa@mailinator.com','123456'],
+            ['bravo@mailinator.com','123qwe'],
+            ['charlie@mailinator.com','poipoi']
+        ];
+
+        foreach ($users as $user) {
+            $writted = $fileOps->writeFile([$user[0], $user[1]]);
+            $this->assertNotFalse($writted);
+            $this->assertNotNull($writted);
+        }
+
+        $fileOps->closeFile();
+    }
+
+    /**
+     * @dataProvider getFileUrl
+     */
     public function testReadingFile($fileUrl)
     {
         $fileOps = new FileOperations($fileUrl);
@@ -76,6 +101,7 @@ class FileOperationsTest extends TestCase {
         $data = $fileOps->readFile();
 
         $this->assertNotFalse($data);
+        $this->assertEquals(2,count($data));
         $fileOps->closeFile();
     }
 }

@@ -29,7 +29,7 @@ class FileOperations
 
     public function readFile()
     {
-        return fgetcsv($this->file, 255, ";");
+        return fgetcsv($this->file, 0, ";");
     }
 
     public function writeFile($row)
