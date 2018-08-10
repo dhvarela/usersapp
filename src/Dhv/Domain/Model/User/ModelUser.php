@@ -50,32 +50,6 @@ class ModelUser
     }
 
     /**
-     * @param string $password
-     */
-    public function changePassword($password)
-    {
-        $password = trim($password);
-        if (!$password) {
-            throw new \InvalidArgumentException('password');
-        }
-
-        $this->password = $password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function encryptPassword($password = null)
-    {
-        $password = trim($password ?? $this->password);
-        if (!$password) {
-            throw new \InvalidArgumentException('password');
-        }
-
-        $this->changePassword(md5($password));
-    }
-
-    /**
      * @return string
      */
     public function email()
@@ -89,5 +63,17 @@ class ModelUser
     public function password()
     {
         return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function changePassword($password)
+    {
+        $password = trim($password);
+        if (!$password) {
+            throw new \InvalidArgumentException('password');
+        }
+        $this->password = $password;
     }
 }
