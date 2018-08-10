@@ -3,6 +3,7 @@
 use Dhv\Domain\Services\FileFinder;
 use Dhv\Domain\Model\User\ModelUser;
 use Dhv\Domain\Services\FileOperations;
+use Dhv\Domain\Services\UserOperations;
 use Dhv\Infrastructure\Persistence\InMemory\User\InMemoryUserRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -33,12 +34,15 @@ if (!$fileOps->hasFile()) {
 
     $result = $userRepository->findByEmail($searchEmail) ? "User exists \n" : "User doesn't exist \n";
 
-    if ($userRepository->findByEmailAndPass($searchEmail, $searchPass)) {
+    if ($userFound = $userRepository->findByEmailAndPass($searchEmail, $searchPass)) {
 
         $result .= "The user password is correct \n";
 
-        $userFound = new ModelUser($searchEmail, $searchPass);
-        $userFound->encryptPassword();
+        $userOps = new UserOperations();
+
+        $encryptedPass = $userOps->encryptPassword($userFound->password());
+
+        $userFound->changePassword($encryptedPass);
 
         if ($userRepository->updateUserPassword($userFound)) {
 

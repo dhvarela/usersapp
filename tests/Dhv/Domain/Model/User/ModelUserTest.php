@@ -2,6 +2,7 @@
 
 namespace Dhv\Domain\Model\User;
 
+use Dhv\Domain\Services\UserOperations;
 use PHPUnit\Framework\TestCase;
 
 class ModelUserTest extends TestCase
@@ -68,24 +69,12 @@ class ModelUserTest extends TestCase
         ];
         $user = new ModelUser($data['email'],$data['pass']);
 
-        $user->encryptPassword();
+        $userOps = new UserOperations();
+        $encPass = $userOps->encryptPassword($data['pass']);
+        $user->changePassword($encPass);
 
         $this->assertFalse($user->password()=="qwerty");
         $this->assertEquals($user->password(), md5("qwerty"));
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testEncryptEmptyPassword()
-    {
-        $data = [
-            'email' => "tango@mailinator.com",
-            'pass'  => "qwerty"
-        ];
-        $user = new ModelUser($data['email'],$data['pass']);
-
-        $user->encryptPassword(" ");
     }
 
 }
