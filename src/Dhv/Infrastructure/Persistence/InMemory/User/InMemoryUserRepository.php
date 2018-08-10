@@ -23,7 +23,7 @@ class InMemoryUserRepository
     public function findByEmail($email)
     {
         foreach ($this->users as $user) {
-            if ($user instanceof ModelUser && $user->email() === $email) {
+            if ($user instanceof ModelUser && $user->email() == $email) {
                 return $user;
             }
         }
@@ -37,7 +37,7 @@ class InMemoryUserRepository
     public function findByEmailAndPass($email, $password)
     {
         foreach ($this->users as $user) {
-            if ($user->email() === $email && $user->password() == $password) {
+            if ($user->email() == $email && $user->password() == $password) {
                 return $user;
             }
         }

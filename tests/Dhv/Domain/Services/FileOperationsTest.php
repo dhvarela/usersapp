@@ -25,6 +25,22 @@ class FileOperationsTest extends TestCase {
     /**
      * @dataProvider getFileUrl
      */
+    public function testHasNotFileOperationsService($fileUrl)
+    {
+        $fileOps = new FileOperations($fileUrl."extraUrl");
+        $fileOps->openFile();
+
+        $this->assertFalse($fileOps->hasFile());
+
+        if ($fileOps->hasFile()) {
+            $fileOps->closeFile();
+        }
+
+    }
+
+    /**
+     * @dataProvider getFileUrl
+     */
     public function testCloseFile($fileUrl)
     {
         $fileOps = new FileOperations($fileUrl);
